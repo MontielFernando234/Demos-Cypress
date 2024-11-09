@@ -1,0 +1,31 @@
+{
+  "name": "automation_exercise",
+  "version": "1.0.0",
+  "description": "demos de automatización de pruebas con cypress.io",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx cypress open --browser chrome"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MontielFernando234/Demos-Cypress.git"
+  },
+  "keywords": [
+    "Cypress",
+    "automation",
+    "exercise",
+    "demo",
+    "qa",
+    "automation",
+    "bdd"
+  ],
+  "author": "Montiel Fernando",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MontielFernando234/Demos-Cypress/issues"
+  },
+  "homepage": "https://github.com/MontielFernando234/Demos-Cypress#readme",
+  "devDependencies": {
+    "cypress": "^13.15.2"
+  }
+}

@@ -1,0 +1,12 @@
+#ignorar archivos de compilación
+node_modules/
+
+#ignorar archivos de IDE
+.vsCode/
+
+#ignorar reportes
+report_results/
+
+#ignorar archivos de videos o screenshots
+video/
+screenshots/
