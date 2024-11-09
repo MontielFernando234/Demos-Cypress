@@ -4,7 +4,7 @@
   "description": "demos de automatización de pruebas con cypress.io",
   "main": "index.js",
   "scripts": {
-    "test": "npx cypress open --browser chrome"
+    "dev": "npx cypress open --browser chrome"
   },
   "repository": {
     "type": "git",
