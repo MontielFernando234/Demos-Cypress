@@ -4,7 +4,7 @@
   "description": "demos de automatización de pruebas con cypress.io",
   "main": "index.js",
   "scripts": {
-    "dev": "npx cypress open --browser chrome"
+    "dev": "npx cypress open -b chrome --e2e"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,11 @@
   },
   "homepage": "https://github.com/MontielFernando234/Demos-Cypress#readme",
   "devDependencies": {
-    "cypress": "^13.15.2"
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.3",
+    "cypress": "^13.15.2",
+    "esbuild": "^0.24.0"
+  },
+  "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^21.0.2"
   }
 }
