@@ -4,7 +4,8 @@
   "description": "demos de automatización de pruebas con cypress.io",
   "main": "index.js",
   "scripts": {
-    "dev": "npx cypress open -b chrome --e2e"
+    "dev": "npx cypress open -b chrome --e2e",
+    "run:headless": "cypress run --headless -b chrome"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
   "homepage": "https://github.com/MontielFernando234/Demos-Cypress#readme",
   "devDependencies": {
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.3",
+    "@faker-js/faker": "^9.2.0",
     "cypress": "^13.15.2",
     "esbuild": "^0.24.0"
   },

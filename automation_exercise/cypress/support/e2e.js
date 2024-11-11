@@ -1,12 +1,5 @@
-import './custom_commands/cmd-login';
+import './commands';
 
-on("task", {
-    log(message) {
-      console.log(message);
-      return null;
-    },
-  });
-
-  on("uncaught:exception", (err, runnable) => {
+  Cypress.on("uncaught:exception", (err, runnable) => {
     return false;
   });

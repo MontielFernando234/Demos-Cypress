@@ -9,6 +9,7 @@ const {
 
 module.exports = defineConfig({
   e2e: {
+    baseUrl:"https://automationexercise.com",
     specPattern: "**/*.feature",
     async setupNodeEvents(on, config) {
       await addCucumberPreprocessorPlugin(on, config);

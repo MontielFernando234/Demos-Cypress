@@ -1,0 +1,6 @@
+{
+    "signupTitle":"div.signup-form > h2",
+    "signupName":"input[data-qa='signup-name']",
+    "signupMail":"input[data-qa='signup-email']",
+    "signupSubmit":"button[data-qa='signup-button']"
+}
