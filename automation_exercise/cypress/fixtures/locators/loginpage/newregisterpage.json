@@ -8,9 +8,11 @@
     "days" : "#days",
     "months" : "#months",
     "years" : "#years",
-    "checkNewsletter":"#newsletter",
-    "checkSpecialOffers":"#optin",
-    "firstName":"first_name",
+    "checkNewsletter":"label[for=newsletter]",
+    "chkNl":"#newsletter",
+    "checkSpecialOffers":"label[for=optin]",
+    "chkOp":"#optin",
+    "firstName":"#first_name",
     "lastName":"#last_name",
     "company":"#company",
     "address1" : "#address1",
@@ -20,6 +22,5 @@
     "city":"#city",
     "zipCode":"#zipcode",
     "mobileNumber":"#mobile_number",
-    "ButtonCreateAccount":"button[data-qa='create-account']",
-    "accountInfo":".account-info"
+    "ButtonCreateAccount":"button[data-qa='create-account']"
 }
