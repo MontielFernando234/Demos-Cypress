@@ -4,12 +4,12 @@
 /**
  * @param menu: Nombre del menú tal como aparece en el código html
  */
-Cypress.Commands.add("searchMenu", (menu) => {
+Cypress.Commands.add("navigateTo", (menu) => {
   cy.fixture("locators/homepage/homepage").then((x) => {
     cy.get(x.menu).each((el, index, $list) => {
       $list[index].textContent.includes(menu)
         ? cy.get($list[index]).click({ timeout: 2000 }, { force: true })
-        : cy.log(`nombre menú ${$list[index].textContent}`);
+        : cy.log(`---- Nombre menú ${$list[index].textContent} --------`);
     });
   });
 });
@@ -161,26 +161,37 @@ Cypress.Commands.add("validTitleRegisterSuccessfully", (msg) => {
   });
 });
 
-Cypress.Commands.add("validLogin", (txt, username) => {
-  cy.fixture("locators/accountCreatePage/accountCreatePage").then((x) => {
-    cy.get(x.btnContinue).click({ force: true });
-  });
-
-  cy.fixture("locators/homepage/homepage").then((x) => {
-    let flag = false;
-    cy.get(x.menu)
-      .each((el, index, $list) => {
-        cy.log($list[index].textContent + " " + flag);
-        if ($list[index].textContent.includes(`${txt}${username}`)) {
-          cy.log(flag);
-          flag = true;
-        }
-      })
-      .then(() => {
-        expect(flag).to.be.true;
-      });
-  });
+Cypress.Commands.add("validLogin", () => {
+  cy.contains("a", `Logout`).should("not.exist");
+  cy.contains("a", `Delete Account`).should("not.exist");
+  cy.contains("a", "Logged in as").should("not.exist");
 });
+
+Cypress.Commands.overwrite(
+  "validLogin",
+  (originalFn, txt = null, username = null) => {
+    cy.fixture("locators/accountCreatePage/accountCreatePage").then((x) => {
+      cy.get(x.btnContinue).click({ force: true });
+    });
+
+    if (txt != null && username != null) {
+      cy.fixture("locators/homepage/homepage").then((x) => {
+        let flag = false;
+        cy.get(x.menu)
+          .each((el, index, $list) => {
+            if ($list[index].textContent.includes(`${txt}${username}`)) {
+              flag = true;
+            }
+          })
+          .then(() => {
+            expect(flag).to.be.true;
+          });
+      });
+    } else {
+      originalFn();
+    }
+  }
+);
 
 Cypress.Commands.add("validTitleDeleteSuccessfully", (msg) => {
   cy.fixture("locators/accountCreatePage/accountCreatePage").then((x) => {

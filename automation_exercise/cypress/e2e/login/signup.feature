@@ -9,7 +9,7 @@ Feature: Creation of new clients
               And Username and email are preloaded
 
 
-        @HU01 @Dev @Signup
+        @HU01 @Regression @Signup
         Scenario: Register user
             Given User navigate to " Signup / Login"
              When User ingress name and email and confirm
