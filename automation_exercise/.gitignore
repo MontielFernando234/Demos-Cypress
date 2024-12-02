@@ -6,6 +6,8 @@ node_modules/
 
 #ignorar reportes
 report_results/
+allure-results/
+allure-report/
 
 #ignorar archivos de videos, screenshots o descargas
 video/

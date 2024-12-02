@@ -18,4 +18,4 @@ Feature: Creation of new clients
               And User Fill details: First name, Last name, Company, Address, Address2, Country, State, City, Zipcode, Mobile Number
               And Click 'Create Account'
              Then The new user is created successfuly with de legend 'Account Created!'
-              And User see the text ' Logged in as ' together with the username
+              And User see the text ' Logged in as ' together with the username and delete it

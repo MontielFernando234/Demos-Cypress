@@ -38,12 +38,34 @@ Cypress.Commands.add(
   }
 );
 
+Cypress.Commands.add("ingressLoginEmail", (mail) => {
+  cy.fixture("locators/loginpage/loginpage").then((val) => {
+    cy.get(val.loginMail).type(mail).wait(1500);
+  });
+});
+
+Cypress.Commands.add(
+  "ingressLoginPassword",
+  { prevSubject: true },
+  (anterior, pwd) => {
+    cy.fixture("locators/loginpage/loginpage").then((val) => {
+      cy.get(val.loginPwd).type(pwd).wait(1500);
+    });
+  }
+);
+
 /**
  * Envío de datos básicos para la generación de un nuevo usuario
  */
 Cypress.Commands.add("submitSignUp", { prevSubject: true }, () => {
   cy.fixture("locators/loginpage/loginpage").then((val) => {
     cy.get(val.signupSubmit).click({ timeout: 2000 }, { force: true });
+  });
+});
+
+Cypress.Commands.add("submitLogin", () => {
+  cy.fixture("locators/loginpage/loginpage").then((val) => {
+    cy.get(val.loginSubmit).click({ timeout: 2000 }, { force: true });
   });
 });
 
@@ -167,13 +189,17 @@ Cypress.Commands.add("validLogin", () => {
   cy.contains("a", "Logged in as").should("not.exist");
 });
 
+
+Cypress.Commands.add(`confirmAccountCreated`,()=>{
+  cy.fixture("locators/accountCreatePage/accountCreatePage").then((x) => {
+    cy.get(x.btnContinue).click({ force: true });
+  });
+});
+
+
 Cypress.Commands.overwrite(
   "validLogin",
   (originalFn, txt = null, username = null) => {
-    cy.fixture("locators/accountCreatePage/accountCreatePage").then((x) => {
-      cy.get(x.btnContinue).click({ force: true });
-    });
-
     if (txt != null && username != null) {
       cy.fixture("locators/homepage/homepage").then((x) => {
         let flag = false;

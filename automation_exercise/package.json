@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx cypress open -b chrome --e2e",
-    "run:headless": "cypress run --headless -b chrome"
+    "run:headless": "cypress run --headless -b chrome",
+    "generate:allure:report": "allure generate ./allure-results -o ./allure-report",
+    "open:allure:report": "allure open ./allure-report"
   },
   "repository": {
     "type": "git",
@@ -29,10 +31,12 @@
   "devDependencies": {
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.3",
     "@faker-js/faker": "^9.2.0",
+    "allure-cypress": "^3.0.6",
     "cypress": "^13.15.2",
     "esbuild": "^0.24.0"
   },
   "dependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "^21.0.2"
+    "@badeball/cypress-cucumber-preprocessor": "^21.0.2",
+    "allure-js-commons": "^3.0.6"
   }
 }
