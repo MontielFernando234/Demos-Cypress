@@ -3,7 +3,7 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 import * as allure from "allure-js-commons";
 
-Given(`User {string} navigate to {string} in shop store`, (userName, menu) => {
+Given(`User {string} navigate to {string} in shop store`, (userName :string, menu :string) => {
   allure.tag("HU02");
   allure.tag("Login");
   allure.epic("Login");
@@ -19,7 +19,7 @@ Given(`User {string} navigate to {string} in shop store`, (userName, menu) => {
   });
 });
 
-When(`User type mail {string} and Password {string}`, (mail, pwd) => {
+When(`User type mail {string} and Password {string}`, (mail :string, pwd :string) => {
   allure.tag("HU02");
   allure.tag("Login");
   allure.epic("Login");
@@ -45,7 +45,7 @@ When(`send credentials`, () => {
   });
 });
 
-Then("User see the text {string} together with the username", (string) => {
+Then("User see the text {string} together with the username", (string :string) => {
   allure.tag("HU02");
   allure.tag("Login");
   allure.epic("Login");
@@ -54,10 +54,11 @@ Then("User see the text {string} together with the username", (string) => {
 
   allure.step(`User see the text ${string} together with the username`, () => {
     cy.get("@username").then((userData) => {
+      let ud = userData as unknown as string;
       allure.step(
         `Check the text ${string} ${userData} is visible`,
         () => {
-          cy.validLogin(string, userData);
+          cy.validLogin(string, ud);
         }
       );
     });

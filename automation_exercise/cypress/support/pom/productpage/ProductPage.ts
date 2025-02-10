@@ -1,15 +1,22 @@
 class ProductPage {
   private element : {
-    imageCard: "div.single-products";
-    productOverlay: "div.product-overlay";
+    IMAGE_CARD: string
+    PRODUCT_OVERLAY: string
   };
 
-  getImageCard() : string{
-    return this.element.imageCard;
+  constructor(){
+    this.element = {
+      IMAGE_CARD: "div.single-products",
+      PRODUCT_OVERLAY: "div.product-overlay"
+    };
   }
 
-  getProductOverlay() : string{
-    return this.element.productOverlay;
+  get ImageCard() : string{
+    return this.element.IMAGE_CARD;
+  }
+
+  get ProductOverlay() : string{
+    return this.element.PRODUCT_OVERLAY;
   }
 
 

@@ -10,7 +10,7 @@ Given(
   }
 );
 
-When("He hover over first product and click {string}", (buttonName) => {
+When("He hover over first product and click {string}", (buttonName : string) => {
   cy.addProduct(1);
 
   /* cy.get('SELECTOR_DEL_PRIMER_PRODUCTO') // Reemplaza 'SELECTOR_DEL_PRIMER_PRODUCTO' con el selector del primer producto
