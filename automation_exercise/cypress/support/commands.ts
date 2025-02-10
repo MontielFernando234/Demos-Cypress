@@ -7,14 +7,18 @@
 Cypress.Commands.add("navigateTo", (menu) => {
   cy.fixture("locators/homepage/homepage").then((x) => {
     cy.get(x.menu).each((el, index, $list) => {
-      $list[index].textContent.includes(menu)
-        ? cy.get($list[index]).click({ timeout: 2000 }, { force: true })
+      let listMenuItem = $list[index];
+      cy.wrap(listMenuItem).as("menuItem");
+
+      listMenuItem.textContent.includes(menu)
+        ? cy.get("@menuItem").click({ force: true })
         : cy.log(`---- Nombre menú ${$list[index].textContent} --------`);
     });
   });
 });
 
-//Comandos Login Page
+//----------------------------------------------------Comandos Login Page--------------------------------------------------------------------------------//
+
 /**
  * @param username: agregar nombre de usuario
  */
@@ -59,17 +63,18 @@ Cypress.Commands.add(
  */
 Cypress.Commands.add("submitSignUp", { prevSubject: true }, () => {
   cy.fixture("locators/loginpage/loginpage").then((val) => {
-    cy.get(val.signupSubmit).click({ timeout: 2000 }, { force: true });
+    cy.get(val.signupSubmit).click({ force: true });
   });
 });
 
 Cypress.Commands.add("submitLogin", () => {
   cy.fixture("locators/loginpage/loginpage").then((val) => {
-    cy.get(val.loginSubmit).click({ timeout: 2000 }, { force: true });
+    cy.get(val.loginSubmit).click({ force: true });
   });
 });
 
-//Comandos Signup page
+//----------------------------------------------------Comandos Signup page--------------------------------------------------------------------------------//
+
 /**
  * @param title: cargar el nombre del título de la página Signup
  */
@@ -189,13 +194,11 @@ Cypress.Commands.add("validLogin", () => {
   cy.contains("a", "Logged in as").should("not.exist");
 });
 
-
-Cypress.Commands.add(`confirmAccountCreated`,()=>{
+Cypress.Commands.add(`confirmAccountCreated`, () => {
   cy.fixture("locators/accountCreatePage/accountCreatePage").then((x) => {
     cy.get(x.btnContinue).click({ force: true });
   });
 });
-
 
 Cypress.Commands.overwrite(
   "validLogin",
@@ -222,5 +225,13 @@ Cypress.Commands.overwrite(
 Cypress.Commands.add("validTitleDeleteSuccessfully", (msg) => {
   cy.fixture("locators/accountCreatePage/accountCreatePage").then((x) => {
     cy.get(x.titleDelete).should("have.text", msg);
+  });
+});
+
+//----------------------------------------------------Comandos Signup page--------------------------------------------------------------------------------//
+
+Cypress.Commands.add("addProduct", (itemProduct) => {
+  cy.fixture("locators/productpage/productpage").then((val) => {
+    cy.get(val.imageCard).eq(itemProduct - 1).realHover();
   });
 });

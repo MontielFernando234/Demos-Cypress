@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es5", "dom"],
+    "types": ["cypress", "node","cypress-real-events"],
+    "module":"node16",
+     "moduleResolution": "node16",
+    "esModuleInterop": true,
+    "declaration": true,
+  },
+  "include": ["**/*.ts","**/*.js"]
+}

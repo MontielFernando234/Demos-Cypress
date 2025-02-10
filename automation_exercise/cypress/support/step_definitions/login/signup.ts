@@ -1,19 +1,20 @@
 /// <reference types="cypress"/>
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
-const DataGenerator = require("../../lib/DataGenerator");
+import { UserData, AddressData } from '../../lib/DataGenerator';
+import DataGenerator from "../../lib/DataGenerator";
 import * as allure from "allure-js-commons";
 
 function createDataUser() {
-  const userData = DataGenerator.generateUserData();
+  const userData : UserData = DataGenerator.generateUserData();
   cy.wrap(userData).as("newUser");
 }
 
 function createDataAddress() {
-  const userAddress = DataGenerator.generateAddress();
+  const userAddress : AddressData = DataGenerator.generateAddress();
   cy.wrap(userAddress).as("newAddress");
 }
 
-Given(`User navigate to {string}`, (menu) => {
+Given(`User navigate to {string}`, (menu : string) => {
   allure.tag("HU01");
   allure.tag("Signup");
   allure.epic("Login");
@@ -39,11 +40,12 @@ When(`User ingress name and email and confirm`, () => {
 
   allure.step("User ingress name and email and confirm", () => {
     cy.get("@newUser").then((userData) => {
+      const user = userData as unknown as UserData;
       allure.step(
-        `User input username ${userData.username} and email ${userData.email}`,
+        `User input username ${user.username} and email ${user.email}`,
         () => {
-          cy.ingressName(userData.username)
-            .ingressEmail(userData.email)
+          cy.ingressName(user.username)
+            .ingressEmail(user.email)
             .submitSignUp();
         }
       );
@@ -62,12 +64,13 @@ When("User Fill details: Title, Name, Email, Password, Date of birth", () => {
     "User Fill details: Title, Name, Email, Password, Date of birth",
     () => {
       cy.get("@newUser").then((userData) => {
+        const user = userData as unknown as UserData;
         allure.step(
-          `User select title ${userData.title}, input ${userData.password} and select birthday ${userData.birthday}`,
+          `User select title ${user.title}, input ${user.password} and select birthday ${user.birthday}`,
           () => {
-            cy.selectTitle(userData.title);
-            cy.typePassword(userData.password);
-            cy.selectDateBirthday(userData.birthday);
+            cy.selectTitle(user.title);
+            cy.typePassword(user.password);
+            cy.selectDateBirthday(user.birthday);
           }
         );
       });
@@ -75,7 +78,7 @@ When("User Fill details: Title, Name, Email, Password, Date of birth", () => {
   );
 });
 
-When("User select checkbox: {string} and {string}", function (string, string2) {
+When("User select checkbox: {string} and {string}", function (string : string, string2 : string) {
   allure.tag("HU01");
   allure.tag("Signup");
   allure.epic("Login");
@@ -102,32 +105,35 @@ When(
       "User Fill details: First name, Last name, Company, Address, Address2, Country, State, City, Zipcode, Mobile Number",
       () => {
         cy.get("@newUser").then((userData) => {
+          const user = userData as unknown as UserData;
           allure.step(
-            `User fill first name ${userData.fname} and last name ${userData.lname}`,
+            `User fill first name ${user.fname} and last name ${user.lname}`,
             () => {
-              cy.fillName(userData.fname, userData.lname);
+              cy.fillName(user.fname, user.lname);
             }
           );
         });
 
         cy.get("@newAddress").then((userAddress) => {
+          const address = userAddress as unknown as AddressData;
           allure.step(
-            `User fill company ${userAddress.company} ,address ${userAddress.address} , address2 ${userAddress.address2}, state ${userAddress.state}, city ${userAddress.city} and zip code ${userAddress.zipCode}`,
+            `User fill company ${address.company} ,address ${address.address} , address2 ${address.address2}, state ${address.state}, city ${address.city} and zip code ${address.zipCode}`,
             () => {
-              cy.fillCompany(userAddress.company);
-              cy.fillAddress(userAddress.address, userAddress.address2);
+              cy.fillCompany(address.company);
+              cy.fillAddress(address.address, address.address2);
               cy.fillLocation(
-                userAddress.state,
-                userAddress.city,
-                userAddress.zipCode
+                address.state,
+                address.city,
+                address.zipCode
               );
             }
           );
         });
 
         cy.get("@newUser").then((userData) => {
-          allure.step(`User fill phone number ${userData.phoneNumber}`, () => {
-            cy.fillPhoneNumber(userData.phoneNumber);
+          const user = userData as unknown as UserData;
+          allure.step(`User fill phone number ${user.phoneNumber}`, () => {
+            cy.fillPhoneNumber(user.phoneNumber);
           });
         });
       }
@@ -135,7 +141,7 @@ When(
   }
 );
 
-When("Click {string}", function (string) {
+When("Click {string}", function (string : string) {
   allure.tag("HU01");
   allure.tag("Signup");
   allure.epic("Login");
@@ -147,7 +153,7 @@ When("Click {string}", function (string) {
   });
 });
 
-Then(`Access successfully at {string}`, (title) => {
+Then(`Access successfully at {string}`, (title : string) => {
   allure.tag("HU01");
   allure.tag("Signup");
   allure.epic("Login");
@@ -168,10 +174,11 @@ Then(`Username and email are preloaded`, () => {
 
   allure.step(`Username and email are preloaded`, () => {
     cy.get("@newUser").then((userData) => {
+      const user = userData as unknown as UserData;
       allure.step(
-        `Check username ${userData.username} and email ${userData.email} preloaded`,
+        `Check username ${user.username} and email ${user.email} preloaded`,
         () => {
-          cy.preloadedInputs(userData.username, userData.email);
+          cy.preloadedInputs(user.username, user.email);
         }
       );
     });
@@ -180,7 +187,7 @@ Then(`Username and email are preloaded`, () => {
 
 Then(
   "The new user is created successfuly with de legend {string}",
-  (string) => {
+  (string : string) => {
     allure.tag("HU01");
     allure.tag("Signup");
     allure.epic("Login");
@@ -196,7 +203,7 @@ Then(
   }
 );
 
-Then("User see the text {string} together with the username and delete it", (string) => {
+Then("User see the text {string} together with the username and delete it", (string : string) => {
   allure.tag("HU01");
   allure.tag("Signup");
   allure.epic("Login");
@@ -205,11 +212,12 @@ Then("User see the text {string} together with the username and delete it", (str
 
   allure.step(`User see the text ${string} together with the username`, () => {
     cy.get("@newUser").then((userData) => {
+      const user = userData as unknown as UserData;
       allure.step(
-        `Check the text ${string} ${userData.username} is visible`,
+        `Check the text ${string} ${user.username} is visible`,
         () => {
           cy.confirmAccountCreated();
-          cy.validLogin(string, userData.username);
+          cy.validLogin(string, user.username);
         }
       );
     });
