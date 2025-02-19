@@ -147,5 +147,13 @@ declare namespace Cypress {
      * @param itemProduct 
      */
     addProduct(itemProduct: number): Chainable<void>;
+    
+    continueShopping(buttonName : string): Chainable<void>;
+
+    /**
+     * Ir al carrito de compras desde el modal de confirmación de producto agregado al carrito
+     * @param linkName 
+     */
+    viewCartFromModalProductAdded(linkName : string) : Chainable<void>;
   }
 }

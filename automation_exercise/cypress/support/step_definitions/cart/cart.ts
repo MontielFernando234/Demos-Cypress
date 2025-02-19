@@ -10,27 +10,20 @@ Given(
   }
 );
 
-When("He hover over first product and click {string}", (buttonName : string) => {
+When("He hover over first product and click {string}", (buttonName: string) => {
   cy.addProduct(1);
-
-  /* cy.get('SELECTOR_DEL_PRIMER_PRODUCTO') // Reemplaza 'SELECTOR_DEL_PRIMER_PRODUCTO' con el selector del primer producto
-      .trigger('mouseover')
-      .get('SELECTOR_BOTON_ADD_TO_CART') // Reemplaza 'SELECTOR_BOTON_ADD_TO_CART' con el selector del botón "Add to cart"
-      .click(); */
 });
 
 When("Click {string} button from confirm modal", (buttonName: string) => {
-  /* cy.get('SELECTOR_BOTON_CONTINUE_SHOPPING') // Reemplaza 'SELECTOR_BOTON_CONTINUE_SHOPPING' con el selector del botón "Continue Shopping"
-      .click(); */
+  buttonName === "Continue Shopping"
+    ? cy.continueShopping(buttonName)
+    : cy.viewCartFromModalProductAdded(buttonName);
 });
 
 When(
   "He hover over second product and click {string}",
   (buttonName: string) => {
-    /* cy.get('SELECTOR_DEL_SEGUNDO_PRODUCTO') // Reemplaza 'SELECTOR_DEL_SEGUNDO_PRODUCTO' con el selector del segundo producto
-      .trigger('mouseover')
-      .get('SELECTOR_BOTON_ADD_TO_CART') // Reemplaza 'SELECTOR_BOTON_ADD_TO_CART' con el selector del botón "Add to cart"
-      .click(); */
+    cy.addProduct(2);
   }
 );
 
