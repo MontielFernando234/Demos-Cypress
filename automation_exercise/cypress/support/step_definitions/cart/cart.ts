@@ -1,6 +1,9 @@
 /// <reference types="cypress"/>
 
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+import Cart from "../../lib/SingletonCart";
+
+const cart = Cart.getInstance();
 
 Given(
   "{string} go to {string} page from shop store",
@@ -11,7 +14,7 @@ Given(
 );
 
 When("He hover over first product and click {string}", (buttonName: string) => {
-  cy.addProduct(1);
+  cy.addProduct(buttonName, cart, 1, 1);
 });
 
 When("Click {string} button from confirm modal", (buttonName: string) => {
@@ -23,20 +26,14 @@ When("Click {string} button from confirm modal", (buttonName: string) => {
 When(
   "He hover over second product and click {string}",
   (buttonName: string) => {
-    cy.addProduct(2);
+    cy.addProduct(buttonName, cart, 2, 1);
   }
 );
 
 Then("Both products are added to Cart", () => {
-  /*  cy.get('SELECTOR_PRODUCTO_EN_EL_CARRITO') // Reemplaza 'SELECTOR_PRODUCTO_EN_EL_CARRITO' con el selector de los productos en el carrito
-      .should('have.length', 2); */
+  cy.validateProductsInCart(cart);
 });
 
 Then("Their prices, quantity and total price are displayed correctly", () => {
-  /* cy.get('SELECTOR_PRECIO_PRODUCTO') // Reemplaza 'SELECTOR_PRECIO_PRODUCTO' con el selector del precio del producto
-      .should('be.visible');
-    cy.get('SELECTOR_CANTIDAD_PRODUCTO') // Reemplaza 'SELECTOR_CANTIDAD_PRODUCTO' con el selector de la cantidad del producto
-      .should('be.visible');
-    cy.get('SELECTOR_PRECIO_TOTAL') // Reemplaza 'SELECTOR_PRECIO_TOTAL' con el selector del precio total
-      .should('be.visible'); */
+  cy.validateQuantityAndTotalPrice(cart);
 });

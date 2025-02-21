@@ -144,10 +144,17 @@ declare namespace Cypress {
     
     /**
      * Agregar producto al carrito
-     * @param itemProduct 
+     * @param buttonName nombre de botón
+     * @param cart instancia de carrito de compras
+     * @param itemListProduct número de producto en la lista
+     * @param quantity cantidad del producto a agregar
      */
-    addProduct(itemProduct: number): Chainable<void>;
+    addProduct(buttonName: string, cart:any, itemListProduct: number, quantity : number): Chainable<void>;
     
+    /**
+     * Continuar comprando
+     * @param buttonName 
+     */
     continueShopping(buttonName : string): Chainable<void>;
 
     /**
@@ -155,5 +162,18 @@ declare namespace Cypress {
      * @param linkName 
      */
     viewCartFromModalProductAdded(linkName : string) : Chainable<void>;
+
+    /**
+     * Validar productos en el carrito
+     * @param products 
+     */
+    validateProductsInCart(products: Object): Chainable<void>;
+
+    /**
+     * Validar cantidad y precio total
+     * @param products 
+     */
+    validateQuantityAndTotalPrice(products: Object): Chainable<void>;
   }
+
 }

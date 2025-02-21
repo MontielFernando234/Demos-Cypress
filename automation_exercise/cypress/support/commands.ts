@@ -4,11 +4,12 @@ import LoginPage from "./pom/loginPage/LoginPage";
 import NewRegisterPage from "./pom/loginPage/NewRegisterPage";
 import AccountCreatePage from "./pom/accountCreatePage/AccountCreatePage";
 import ProductPage from "./pom/productPage/ProductPage";
+import CartPage from "./pom/cartpage/CartPage";
+import Cart from "./lib/SingletonCart";
 
-//Navegación menú
-/**
- * @param menu: Nombre del menú tal como aparece en el código html
- */
+//-------------------------------------------------------------------------------------------------------------------------------------------------------//
+//----------------------------------------------------Comandos HomePage----------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------------------------------------------------------------------------//
 Cypress.Commands.add("navigateTo", (menu) => {
   cy.get(HomePage.Menu).each((el, index, $list) => {
     let listMenuItem = $list[index];
@@ -20,19 +21,14 @@ Cypress.Commands.add("navigateTo", (menu) => {
   });
 });
 
+//-------------------------------------------------------------------------------------------------------------------------------------------------------//
 //----------------------------------------------------Comandos Login Page--------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-/**
- * @param username: agregar nombre de usuario
- */
 Cypress.Commands.add("ingressName", (username) => {
   cy.get(LoginPage.SignupName).type(username).wait(1500);
 });
 
-/**
- * @param anterior: elemento anterior (no se carga este valor al invocarlo ya que es el valor del método padre)
- * @param mail: correo
- */
 Cypress.Commands.add(
   "ingressEmail",
   { prevSubject: true },
@@ -53,9 +49,6 @@ Cypress.Commands.add(
   }
 );
 
-/**
- * Envío de datos básicos para la generación de un nuevo usuario
- */
 Cypress.Commands.add("submitSignUp", { prevSubject: true }, () => {
   cy.get(LoginPage.SignupSubmit).click({ force: true });
 });
@@ -64,43 +57,29 @@ Cypress.Commands.add("submitLogin", () => {
   cy.get(LoginPage.LoginSubmit).click({ force: true });
 });
 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------//
 //----------------------------------------------------Comandos Signup page--------------------------------------------------------------------------------//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-/**
- * @param title: cargar el nombre del título de la página Signup
- */
 Cypress.Commands.add("validTitleSignup", (title) => {
   cy.get(NewRegisterPage.TITLE).should("have.text", title, "mensaje");
 });
 
-/**
- * @param username: nombre de usuario
- * @param email: correo electrónico con formato example@info.com
- */
 Cypress.Commands.add("preloadedInputs", (username, email) => {
   cy.get(NewRegisterPage.INPUT_NAME).should("have.value", username);
   cy.get(NewRegisterPage.EMAIL).should("have.value", email);
 });
 
-/**
- * @param title: género (male or female)
- */
 Cypress.Commands.add("selectTitle", (title) => {
   title === "male"
     ? cy.get(NewRegisterPage.GENDER_MR).check({ force: true })
     : cy.get(NewRegisterPage.GENDER_MRS).check({ force: true });
 });
 
-/**
- * @param password: contraseña
- */
 Cypress.Commands.add("typePassword", (password) => {
   cy.get(NewRegisterPage.PASSWORD).type(password);
 });
 
-/**
- * @param birthday: fecha de nacimiento en formato dd month yyyy
- */
 Cypress.Commands.add("selectDateBirthday", (birthday) => {
   const date = birthday.split(" ");
   cy.get(NewRegisterPage.DAYS).select(date[0]);
@@ -188,22 +167,81 @@ Cypress.Commands.add("validTitleDeleteSuccessfully", (msg) => {
   cy.get(AccountCreatePage.TITLE_DELETE).should("have.text", msg);
 });
 
-//----------------------------------------------------Comandos Signup page--------------------------------------------------------------------------------//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------//
+//----------------------------------------------------Comandos Cart page--------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-Cypress.Commands.add("addProduct", (itemProduct) => {
-  cy.get(ProductPage.ImageCard)
-    .eq(itemProduct - 1)
-    .realHover();
+Cypress.Commands.add(
+  "addProduct",
+  (buttonName: string, cart: Cart, itemProduct: number, quantity: number) => {
+    cy.get(ProductPage.ImageCard)
+      .eq(itemProduct - 1)
+      .realHover();
 
-  cy.get(
-    ProductPage.addToCartButtonOverlay.replace("productID", `${itemProduct}`)
-  ).click({ force: true });
+    cy.get(
+      ProductPage.addToCartButtonOverlay.replace("productID", `${itemProduct}`)
+    )
+      .should("have.text", buttonName)
+      .then((button) => {
+        cy.wrap(button)
+          .parent("div.overlay-content")
+          .children("p")
+          .invoke("text")
+          .then((pName) => {
+            cy.wrap(button)
+              .parent("div.overlay-content")
+              .children("h2")
+              .invoke("text")
+              .then((pPrice) => {
+                cart.addProduct({
+                  name: `${pName}`,
+                  price: parseFloat(`${pPrice}`.replace("Rs. ", "")),
+                  quantity: quantity,
+                });
+              });
+          });
+
+        cy.wrap(button).click({ force: true });
+      });
+  }
+);
+
+Cypress.Commands.add("continueShopping", (buttonName: string) => {
+  cy.get(ProductPage.buttonContinueToShopping).click({ force: true });
 });
-
-Cypress.Commands.add('continueShopping',(buttonName : string)=>{
-  cy.get(ProductPage.buttonContinueToShopping).click({force:true});
-})
 
 Cypress.Commands.add("viewCartFromModalProductAdded", (linkName: string) => {
   cy.get(ProductPage.linkViewCart).click({ force: true });
+});
+
+Cypress.Commands.add("validateProductsInCart", (products: Cart) => {
+  cy.get(CartPage.bodyCart).should(
+    "have.length",
+    products.getProducts().length
+  );
+
+  products.getProducts().forEach((product, index) => {
+    cy.get(
+      CartPage.cartItemDescription.replace("index", `${index + 1}`)
+    ).should("contain", product.name);
+  });
+});
+
+Cypress.Commands.add("validateQuantityAndTotalPrice", (products: Cart) => {
+  let totalPrice = 0;
+  products.getProducts().forEach((product, index) => {
+    cy.get(CartPage.cartItemPrice.replace("index", `${index + 1}`)).should(
+      "contain",
+      product.price
+    );
+    cy.get(CartPage.cartItemQuantity.replace("index", `${index + 1}`)).should(
+      "contain",
+      product.quantity
+    );
+    totalPrice = product.price * product.quantity;
+    cy.get(CartPage.cartItemTotal.replace("index", `${index + 1}`)).should(
+      "contain",
+      totalPrice
+    );
+  });
 });
