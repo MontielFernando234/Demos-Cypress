@@ -15,7 +15,7 @@ function createDataAddress() {
 }
 
 Given(`User navigate to {string}`, (menu : string) => {
-  allure.tag("HU01");
+  allure.tag("US01");
   allure.tag("Signup");
   allure.epic("Login");
   allure.feature("Creation of new clients");
@@ -30,7 +30,7 @@ Given(`User navigate to {string}`, (menu : string) => {
 });
 
 When(`User ingress name and email and confirm`, () => {
-  allure.tag("HU01");
+  allure.tag("US01");
   allure.tag("Signup");
   allure.epic("Login");
   allure.feature("Creation of new clients");
@@ -54,7 +54,7 @@ When(`User ingress name and email and confirm`, () => {
 });
 
 When("User Fill details: Title, Name, Email, Password, Date of birth", () => {
-  allure.tag("HU01");
+  allure.tag("US01");
   allure.tag("Signup");
   allure.epic("Login");
   allure.feature("Creation of new clients");
@@ -79,7 +79,7 @@ When("User Fill details: Title, Name, Email, Password, Date of birth", () => {
 });
 
 When("User select checkbox: {string} and {string}", function (string : string, string2 : string) {
-  allure.tag("HU01");
+  allure.tag("US01");
   allure.tag("Signup");
   allure.epic("Login");
   allure.feature("Creation of new clients");
@@ -93,7 +93,7 @@ When("User select checkbox: {string} and {string}", function (string : string, s
 When(
   "User Fill details: First name, Last name, Company, Address, Address2, Country, State, City, Zipcode, Mobile Number",
   () => {
-    allure.tag("HU01");
+    allure.tag("US01");
     allure.tag("Signup");
     allure.epic("Login");
     allure.feature("Creation of new clients");
@@ -142,7 +142,7 @@ When(
 );
 
 When("Click {string}", function (string : string) {
-  allure.tag("HU01");
+  allure.tag("US01");
   allure.tag("Signup");
   allure.epic("Login");
   allure.feature("Creation of new clients");
@@ -154,7 +154,7 @@ When("Click {string}", function (string : string) {
 });
 
 Then(`Access successfully at {string}`, (title : string) => {
-  allure.tag("HU01");
+  allure.tag("US01");
   allure.tag("Signup");
   allure.epic("Login");
   allure.feature("Creation of new clients");
@@ -166,7 +166,7 @@ Then(`Access successfully at {string}`, (title : string) => {
 });
 
 Then(`Username and email are preloaded`, () => {
-  allure.tag("HU01");
+  allure.tag("US01");
   allure.tag("Signup");
   allure.epic("Login");
   allure.feature("Creation of new clients");
@@ -188,7 +188,7 @@ Then(`Username and email are preloaded`, () => {
 Then(
   "The new user is created successfuly with de legend {string}",
   (string : string) => {
-    allure.tag("HU01");
+    allure.tag("US01");
     allure.tag("Signup");
     allure.epic("Login");
     allure.feature("Creation of new clients");
@@ -204,7 +204,7 @@ Then(
 );
 
 Then("User see the text {string} together with the username and delete it", (string : string) => {
-  allure.tag("HU01");
+  allure.tag("US01");
   allure.tag("Signup");
   allure.epic("Login");
   allure.feature("Creation of new clients");

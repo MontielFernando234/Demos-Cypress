@@ -4,7 +4,7 @@ import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 import * as allure from "allure-js-commons";
 
 Given(`User {string} navigate to {string} in shop store`, (userName :string, menu :string) => {
-  allure.tag("HU02");
+  allure.tag("US02");
   allure.tag("Login");
   allure.epic("Login");
   allure.feature("User Login");
@@ -20,7 +20,7 @@ Given(`User {string} navigate to {string} in shop store`, (userName :string, men
 });
 
 When(`User type mail {string} and Password {string}`, (mail :string, pwd :string) => {
-  allure.tag("HU02");
+  allure.tag("US02");
   allure.tag("Login");
   allure.epic("Login");
   allure.feature("User Login");
@@ -34,7 +34,7 @@ When(`User type mail {string} and Password {string}`, (mail :string, pwd :string
 });
 
 When(`send credentials`, () => {
-  allure.tag("HU02");
+  allure.tag("US02");
   allure.tag("Login");
   allure.epic("Login");
   allure.feature("User Login");
@@ -46,7 +46,7 @@ When(`send credentials`, () => {
 });
 
 Then("User see the text {string} together with the username", (string :string) => {
-  allure.tag("HU02");
+  allure.tag("US02");
   allure.tag("Login");
   allure.epic("Login");
   allure.feature("User Login");
