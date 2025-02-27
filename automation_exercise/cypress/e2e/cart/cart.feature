@@ -1,6 +1,6 @@
 Feature: Product Cart
 
-    TC related to product carts (CRUD)
+    TC related to product cart (CRUD)
 
         @US06 @Regression @Cart
         Scenario: Add products in cart

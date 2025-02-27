@@ -1,5 +1,5 @@
 Feature: User Login
-Features about login scenarios
+TC about login scenarios
 
         @US02 @Regression @Login
         Scenario: Login with valid credentials

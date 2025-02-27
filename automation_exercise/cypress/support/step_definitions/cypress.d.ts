@@ -174,6 +174,41 @@ declare namespace Cypress {
      * @param products 
      */
     validateQuantityAndTotalPrice(products: Object): Chainable<void>;
+
+    /**
+     * Proceder al checkout
+     * @param buttonName 
+     */
+    proceedToCheckout(buttonName: string): Chainable<void>;
+
+    /**
+     * Ir a la página de pago
+     * @param buttonName 
+     */
+    goToPaymentData(buttonName: string): Chainable<void>;
+
+    /**
+     * Llenar datos de tarjeta
+     * @param nameCard 
+     * @param numberCard 
+     * @param cvc 
+     * @param monthExp 
+     * @param yearExp 
+     */
+    fillCardData(nameCard : string, numberCard : string, cvc : string, monthExp : string, yearExp : string): Chainable<void>;
+
+    /**
+     * Confirmar orden
+     * @param buttonName 
+     */
+    confirmOrder(buttonName: string): Chainable<void>;
+
+    /**
+     * Validar pago exitoso
+     * @param title 
+     * @param message 
+     */
+    validatePaymentSuccess(title: string, message: string): Chainable<void>;
   }
 
 }

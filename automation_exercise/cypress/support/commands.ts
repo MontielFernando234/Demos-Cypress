@@ -5,7 +5,9 @@ import NewRegisterPage from "./pom/loginPage/NewRegisterPage";
 import AccountCreatePage from "./pom/accountCreatePage/AccountCreatePage";
 import ProductPage from "./pom/productPage/ProductPage";
 import CartPage from "./pom/cartpage/CartPage";
+import PaymentPage from "./pom/paymentPage/PaymentPage";
 import Cart from "./lib/SingletonCart";
+import CheckoutPage from "./pom/checkoutPage/CheckoutPage";
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------//
 //----------------------------------------------------Comandos HomePage----------------------------------------------------------------------------------//
@@ -244,4 +246,48 @@ Cypress.Commands.add("validateQuantityAndTotalPrice", (products: Cart) => {
       totalPrice
     );
   });
+});
+
+Cypress.Commands.add("proceedToCheckout", (buttonName: string) => {
+  cy.get(CartPage.buttonCheckout)
+    .should("have.text", buttonName)
+    .click({ force: true });
+});
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------//
+//----------------------------------------------------Comandos Payment page--------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+Cypress.Commands.add("goToPaymentData", (buttonName: string) => {
+  cy.get(CheckoutPage.buttonPlaceOrder)
+    .should("have.text", buttonName)
+    .click({ force: true });
+});
+
+Cypress.Commands.add(
+  "fillCardData",
+  (
+    nameCard: string,
+    numberCard: string,
+    cvc: string,
+    monthExp: string,
+    yearExp: string
+  ) => {
+    cy.get(PaymentPage.inputNameOnCard).type(nameCard);
+    cy.get(PaymentPage.inputCardNumber).type(numberCard);
+    cy.get(PaymentPage.inputCvc).type(cvc);
+    cy.get(PaymentPage.inputExpirationMonth).type(monthExp);
+    cy.get(PaymentPage.inputExpirationYear).type(yearExp);
+  }
+);
+
+Cypress.Commands.add("confirmOrder", (buttonName: string) => {
+  cy.get(PaymentPage.buttonPayNow)
+    .should("have.text", buttonName)
+    .click({ force: true });
+});
+
+Cypress.Commands.add("validatePaymentSuccess", (title: string, message: string) => {
+  cy.get(PaymentPage.titlePaymentDone).should("have.text", title);
+  cy.get(PaymentPage.messagePaymentDone).should("have.text", message);
 });

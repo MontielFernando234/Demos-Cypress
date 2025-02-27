@@ -9,7 +9,6 @@ import {
 import {allureCypress} from "allure-cypress/reporter"; // Importación corregida
 
 export default defineConfig({
-  projectId: 'isgmbk',
   e2e: {
     baseUrl: "https://automationexercise.com",
     specPattern: "**/*.feature",
