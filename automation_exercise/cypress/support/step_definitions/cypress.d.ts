@@ -144,8 +144,71 @@ declare namespace Cypress {
     
     /**
      * Agregar producto al carrito
-     * @param itemProduct 
+     * @param buttonName nombre de botón
+     * @param cart instancia de carrito de compras
+     * @param itemListProduct número de producto en la lista
+     * @param quantity cantidad del producto a agregar
      */
-    addProduct(itemProduct: number): Chainable<void>;
+    addProduct(buttonName: string, cart:any, itemListProduct: number, quantity : number): Chainable<void>;
+    
+    /**
+     * Continuar comprando
+     * @param buttonName 
+     */
+    continueShopping(buttonName : string): Chainable<void>;
+
+    /**
+     * Ir al carrito de compras desde el modal de confirmación de producto agregado al carrito
+     * @param linkName 
+     */
+    viewCartFromModalProductAdded(linkName : string) : Chainable<void>;
+
+    /**
+     * Validar productos en el carrito
+     * @param products 
+     */
+    validateProductsInCart(products: Object): Chainable<void>;
+
+    /**
+     * Validar cantidad y precio total
+     * @param products 
+     */
+    validateQuantityAndTotalPrice(products: Object): Chainable<void>;
+
+    /**
+     * Proceder al checkout
+     * @param buttonName 
+     */
+    proceedToCheckout(buttonName: string): Chainable<void>;
+
+    /**
+     * Ir a la página de pago
+     * @param buttonName 
+     */
+    goToPaymentData(buttonName: string): Chainable<void>;
+
+    /**
+     * Llenar datos de tarjeta
+     * @param nameCard 
+     * @param numberCard 
+     * @param cvc 
+     * @param monthExp 
+     * @param yearExp 
+     */
+    fillCardData(nameCard : string, numberCard : string, cvc : string, monthExp : string, yearExp : string): Chainable<void>;
+
+    /**
+     * Confirmar orden
+     * @param buttonName 
+     */
+    confirmOrder(buttonName: string): Chainable<void>;
+
+    /**
+     * Validar pago exitoso
+     * @param title 
+     * @param message 
+     */
+    validatePaymentSuccess(title: string, message: string): Chainable<void>;
   }
+
 }

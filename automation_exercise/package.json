@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx cypress open -b chrome --e2e",
-    "run:headless": "cypress run --headless -b chrome",
-    "generate:allure:report": "allure generate ./allure-results -o ./allure-report",
+    "run:headless": "cypress run e2e --headless -b chrome",
+    "generate:allure:report": "allure generate ./allure-results --clean -o ./allure-report",
     "open:allure:report": "allure open ./allure-report"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MontielFernando234/Demos-Cypress.git"
+    "url": "https://github.com/MontielFernando234/Demos-Cypress.git"
   },
   "keywords": [
     "Cypress",

@@ -1,7 +1,8 @@
 Feature: Product Cart
 
-    TC related to product carts (CRUD)
+    TC related to product cart (CRUD)
 
+        @US06 @Regression @Cart
         Scenario: Add products in cart
             Given "UserTest" go to "Products" page from shop store
              When He hover over first product and click "Add to cart"

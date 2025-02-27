@@ -1,7 +1,7 @@
 Feature: User Login
-Features about login scenarios
+TC about login scenarios
 
-        @HU02 @Regression @Login
+        @US02 @Regression @Login
         Scenario: Login with valid credentials
             Given User "UserTest" navigate to " Signup / Login" in shop store
              When User type mail "cypress@test.com" and Password "Test1234!"

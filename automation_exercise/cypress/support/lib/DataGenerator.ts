@@ -20,6 +20,14 @@ export interface AddressData {
   zipCode: string;
 }
 
+export interface PaymentData {
+  cardNumber: string;
+  cvc: string;
+  monthExp: string;
+  yearExp: string;
+  nameCard: string;
+}
+
 class DataGenerator {
   static generateUserData(): UserData {
     const formatter = new Intl.DateTimeFormat("en-GB", {
@@ -51,6 +59,16 @@ class DataGenerator {
       state: faker.location.state(),
       city: faker.location.city(),
       zipCode: faker.location.zipCode(),
+    };
+  }
+
+  static generatePaymentData(): PaymentData {
+    return {
+      cardNumber: faker.finance.creditCardNumber(),
+      cvc: faker.finance.creditCardCVV(),
+      monthExp: (faker.date.future().getMonth() + 1).toString().padStart(2, '0'),
+      yearExp: faker.date.future().getFullYear().toString(),
+      nameCard: `${faker.person.firstName()} ${faker.person.lastName()}`,
     };
   }
 }

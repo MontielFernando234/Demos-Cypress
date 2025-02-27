@@ -1,41 +1,38 @@
 /// <reference types="cypress"/>
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
-import { UserData, AddressData } from '../../lib/DataGenerator';
+import { UserData, AddressData } from "../../lib/DataGenerator";
 import DataGenerator from "../../lib/DataGenerator";
 import * as allure from "allure-js-commons";
 
 function createDataUser() {
-  const userData : UserData = DataGenerator.generateUserData();
+  const userData: UserData = DataGenerator.generateUserData();
   cy.wrap(userData).as("newUser");
 }
 
 function createDataAddress() {
-  const userAddress : AddressData = DataGenerator.generateAddress();
+  const userAddress: AddressData = DataGenerator.generateAddress();
   cy.wrap(userAddress).as("newAddress");
 }
 
-Given(`User navigate to {string}`, (menu : string) => {
-  allure.tag("HU01");
-  allure.tag("Signup");
+Given(`User navigate to {string}`, (menu: string) => {
+  allure.tags("US01","Signup","TS01","TS02");
   allure.epic("Login");
   allure.feature("Creation of new clients");
   allure.story("Create User");
-  
+
   allure.step(`User navigate to ${menu}`, () => {
     cy.clearCookies();
-    cy.visit("/");
-    cy.navigateTo(menu);
-  });
+    allure.step(`User navigate to homepage`, () => {
+      cy.visit("/");
+    });
 
+    allure.step(`User navigate to ${menu} in shop store`, () => {
+      cy.navigateTo(menu);
+    });
+  });
 });
 
 When(`User ingress name and email and confirm`, () => {
-  allure.tag("HU01");
-  allure.tag("Signup");
-  allure.epic("Login");
-  allure.feature("Creation of new clients");
-  allure.story("Create User");
-
   createDataUser();
 
   allure.step("User ingress name and email and confirm", () => {
@@ -44,9 +41,7 @@ When(`User ingress name and email and confirm`, () => {
       allure.step(
         `User input username ${user.username} and email ${user.email}`,
         () => {
-          cy.ingressName(user.username)
-            .ingressEmail(user.email)
-            .submitSignUp();
+          cy.ingressName(user.username).ingressEmail(user.email).submitSignUp();
         }
       );
     });
@@ -54,12 +49,6 @@ When(`User ingress name and email and confirm`, () => {
 });
 
 When("User Fill details: Title, Name, Email, Password, Date of birth", () => {
-  allure.tag("HU01");
-  allure.tag("Signup");
-  allure.epic("Login");
-  allure.feature("Creation of new clients");
-  allure.story("Create User");
-
   allure.step(
     "User Fill details: Title, Name, Email, Password, Date of birth",
     () => {
@@ -78,29 +67,19 @@ When("User Fill details: Title, Name, Email, Password, Date of birth", () => {
   );
 });
 
-When("User select checkbox: {string} and {string}", function (string : string, string2 : string) {
-  allure.tag("HU01");
-  allure.tag("Signup");
-  allure.epic("Login");
-  allure.feature("Creation of new clients");
-  allure.story("Create User");
-
-  allure.step(`User select checkbox: ${string} and ${string2}`, () => {
-    cy.optionalCheck(string, string2);
-  });
-});
+When(
+  "User select checkbox: {string} and {string}",
+  function (string: string, string2: string) {
+    allure.step(`User select checkbox: ${string} and ${string2}`, () => {
+      cy.optionalCheck(string, string2);
+    });
+  }
+);
 
 When(
   "User Fill details: First name, Last name, Company, Address, Address2, Country, State, City, Zipcode, Mobile Number",
   () => {
-    allure.tag("HU01");
-    allure.tag("Signup");
-    allure.epic("Login");
-    allure.feature("Creation of new clients");
-    allure.story("Create User");
-
     createDataAddress();
-
     allure.step(
       "User Fill details: First name, Last name, Company, Address, Address2, Country, State, City, Zipcode, Mobile Number",
       () => {
@@ -121,11 +100,7 @@ When(
             () => {
               cy.fillCompany(address.company);
               cy.fillAddress(address.address, address.address2);
-              cy.fillLocation(
-                address.state,
-                address.city,
-                address.zipCode
-              );
+              cy.fillLocation(address.state, address.city, address.zipCode);
             }
           );
         });
@@ -141,37 +116,19 @@ When(
   }
 );
 
-When("Click {string}", function (string : string) {
-  allure.tag("HU01");
-  allure.tag("Signup");
-  allure.epic("Login");
-  allure.feature("Creation of new clients");
-  allure.story("Create User");
-
+When("Click {string}", function (string: string) {
   allure.step(`Click ${string}`, () => {
     cy.sendRegister(string);
   });
 });
 
-Then(`Access successfully at {string}`, (title : string) => {
-  allure.tag("HU01");
-  allure.tag("Signup");
-  allure.epic("Login");
-  allure.feature("Creation of new clients");
-  allure.story("Create User");
-
+Then(`Access successfully at {string}`, (title: string) => {
   allure.step(`Access successfully at ${title}`, () => {
     cy.validTitleSignup(title);
   });
 });
 
 Then(`Username and email are preloaded`, () => {
-  allure.tag("HU01");
-  allure.tag("Signup");
-  allure.epic("Login");
-  allure.feature("Creation of new clients");
-  allure.story("Create User");
-
   allure.step(`Username and email are preloaded`, () => {
     cy.get("@newUser").then((userData) => {
       const user = userData as unknown as UserData;
@@ -187,13 +144,7 @@ Then(`Username and email are preloaded`, () => {
 
 Then(
   "The new user is created successfuly with de legend {string}",
-  (string : string) => {
-    allure.tag("HU01");
-    allure.tag("Signup");
-    allure.epic("Login");
-    allure.feature("Creation of new clients");
-    allure.story("Create User");
-
+  (string: string) => {
     allure.step(
       `The new user is created successfuly with de legend ${string}`,
       () => {
@@ -203,35 +154,35 @@ Then(
   }
 );
 
-Then("User see the text {string} together with the username and delete it", (string : string) => {
-  allure.tag("HU01");
-  allure.tag("Signup");
-  allure.epic("Login");
-  allure.feature("Creation of new clients");
-  allure.story("Create User");
+Then(
+  "User see the text {string} together with the username and delete it",
+  (string: string) => {
+    allure.step(
+      `User see the text ${string} together with the username`,
+      () => {
+        cy.get("@newUser").then((userData) => {
+          const user = userData as unknown as UserData;
+          allure.step(
+            `Check the text ${string} ${user.username} is visible`,
+            () => {
+              cy.confirmAccountCreated();
+              cy.validLogin(string, user.username);
+            }
+          );
+        });
 
-  allure.step(`User see the text ${string} together with the username`, () => {
-    cy.get("@newUser").then((userData) => {
-      const user = userData as unknown as UserData;
-      allure.step(
-        `Check the text ${string} ${user.username} is visible`,
-        () => {
-          cy.confirmAccountCreated();
-          cy.validLogin(string, user.username);
-        }
-      );
-    });
+        allure.step(`User performed click to Delete Account`, () => {
+          cy.navigateTo(" Delete Account");
+        });
 
-    allure.step(`User performed click to Delete Account`, () => {
-      cy.navigateTo(" Delete Account");
-    });
+        allure.step(`Check title Account Deleted! is visible`, () => {
+          cy.validTitleDeleteSuccessfully("Account Deleted!");
+        });
 
-    allure.step(`Check title Account Deleted! is visible`, () => {
-      cy.validTitleDeleteSuccessfully("Account Deleted!");
-    });
-
-    allure.step(`Check username information is not visible`, () => {
-      cy.validLogin();
-    });
-  });
-});
+        allure.step(`Check username information is not visible`, () => {
+          cy.validLogin();
+        });
+      }
+    );
+  }
+);
