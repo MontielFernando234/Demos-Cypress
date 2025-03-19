@@ -1,0 +1,48 @@
+name: Cypress pipeline with github actions
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Cypress tests in headless mode
+        run: npm run run:headless # Ejecuta los tests en modo headless
+
+      - name: Generate Allure Report
+        run: npm run generate:allure:report # Genera el reporte de Allure
+
+      - name: Upload Allure Report (optional)
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report/ # Reemplaza con la ruta correcta de tu reporte
+
+      - name: Deploy to GitHub Pages
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout gh-pages
+          git rm -rf . || true
+          cp -r ./allure-report/* .
+          git add .
+          git commit -m "Actualizar reporte de Allure"
+          git push origin gh-pages --force
