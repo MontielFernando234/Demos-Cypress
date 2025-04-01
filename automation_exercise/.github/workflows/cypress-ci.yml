@@ -4,9 +4,11 @@ on:
     push:
       branches:
         - main
+        - qa
     pull_request:
       branches:
         - main
+        - qa
 
 jobs:
     cypress-run:
@@ -25,7 +27,7 @@ jobs:
           run: npm ci
   
         - name: 🧪 Run Cypress tests in headless mode
-          run: npm run run:headless  # Ejecuta los tests en modo headless
+          run: npx cypress run e2e --headless -b chrome  # Ejecuta los tests en modo headless
   
         - name: 📊 Generate Allure Report (Static HTML)
           run: |
