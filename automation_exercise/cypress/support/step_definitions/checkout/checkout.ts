@@ -11,7 +11,8 @@ function createPaymentData() {
 }
 
 When("Go to checkout and clicked {string} button", (buttonName: string) => {
-  allure.step(`Go to checkout and clicked ${buttonName} button`, () => {
+  allure.step(`Go to checkout and clicked ${buttonName} button`, (s) => {
+    s.parameter("buttonName: ", buttonName);
     cy.proceedToCheckout(buttonName);
   });
 });
