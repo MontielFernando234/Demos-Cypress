@@ -4,7 +4,7 @@ import LoginPage from "./pom/loginPage/LoginPage";
 import NewRegisterPage from "./pom/loginPage/NewRegisterPage";
 import AccountCreatePage from "./pom/accountCreatePage/AccountCreatePage";
 import ProductPage from "./pom/productPage/ProductPage";
-import CartPage from "./pom/cartpage/CartPage";
+import CartPage from "./pom/cartPage/CartPage";
 import PaymentPage from "./pom/paymentPage/PaymentPage";
 import Cart from "./lib/SingletonCart";
 import CheckoutPage from "./pom/checkoutPage/CheckoutPage";
